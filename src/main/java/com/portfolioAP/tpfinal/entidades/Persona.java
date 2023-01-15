@@ -1,5 +1,6 @@
 package com.portfolioAP.tpfinal.entidades;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,11 +11,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Entity
+@Data 
+@AllArgsConstructor
+@NoArgsConstructor
 public class Persona {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,71 +44,38 @@ public class Persona {
 	
 	private String ciudad;
 	
-
+	private LocalDateTime fechaNac;
 	
-
+	private String descripcion;
+	
+	private String foto;
+	
+	@OneToOne(mappedBy="persona", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonManagedReference
+	private Usuario user;
+	
 	@OneToMany(mappedBy="persona", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @JsonManagedReference
 	private List<Curso> cursos;
-
-	public Persona(Long id, String nombre, String apellido, String email, String ocupacion, String ciudad) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.ocupacion = ocupacion;
-		this.ciudad = ciudad;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getOcupacion() {
-		return ocupacion;
-	}
-
-	public void setOcupacion(String ocupacion) {
-		this.ocupacion = ocupacion;
-	}
-
-	public String getCiudad() {
-		return ciudad;
-	}
-
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
 	
-
+	@OneToMany(mappedBy="persona", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JsonManagedReference
+	private List<Educacion> titulos;
+	
+	@OneToMany(mappedBy="persona", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JsonManagedReference
+	private List<ExperienciaLaboral> trabajos;
+	
+	@OneToMany(mappedBy="persona", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JsonManagedReference
+	private List<Skill> habilidades;
+	
+	@OneToMany(mappedBy="persona", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JsonManagedReference
+	private List<Interes> intereses;
+	
+	@OneToMany(mappedBy="persona", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JsonManagedReference
+	private List<Proyecto> proyectos;
+	
 }
