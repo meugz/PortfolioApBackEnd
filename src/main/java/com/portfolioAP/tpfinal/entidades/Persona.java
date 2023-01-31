@@ -17,13 +17,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
-@Data 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Persona {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +50,7 @@ public class Persona {
 	private LocalDateTime fechaNac;
 	
 	private String descripcion;
-	
+
 	private String foto;
 	
 	@OneToOne(mappedBy="persona", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -78,4 +81,5 @@ public class Persona {
     @JsonManagedReference
 	private List<Proyecto> proyectos;
 	
+
 }
