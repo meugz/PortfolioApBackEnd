@@ -34,8 +34,8 @@ public class CursoService implements ICursoService {
     }
 
     @Override
-    public void editarCurso(Curso curso) {
-        cursoRep.save(curso);
+    public Curso editarCurso(Curso curso) {
+        return cursoRep.save(curso);
     }
     
 }
