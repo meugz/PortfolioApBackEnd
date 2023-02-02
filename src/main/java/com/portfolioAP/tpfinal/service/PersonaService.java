@@ -20,8 +20,8 @@ public class PersonaService implements IPersonaService {
 	}
 
 	@Override
-	public void crearPersona(Persona persona) {
-		perRepo.save(persona);
+	public Persona crearPersona(Persona persona) {
+		return perRepo.save(persona);
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class PersonaService implements IPersonaService {
 	}
 
 	@Override
-	public void editarPersona(Persona per) {
-		perRepo.save(per);
+	public Persona editarPersona(Persona per) {
+		return perRepo.save(per);
 	}
 
 	

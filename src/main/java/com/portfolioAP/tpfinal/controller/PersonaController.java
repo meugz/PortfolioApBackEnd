@@ -13,16 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.service.IPersonaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("/api")
 public class PersonaController {
 	
 	@Autowired
 	private IPersonaService perServ;
 	
 	@PostMapping("/new/persona")
-	public void agregarPersona(@RequestBody Persona per) {
-		perServ.crearPersona(per);
+	public ResponseEntity<Persona> agregarPersona(@RequestBody Persona per) {
+            Persona person = perServ.crearPersona(per);
+            return new ResponseEntity<>(person, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/ver/personas")
@@ -38,8 +43,8 @@ public class PersonaController {
 	}
 	
 	@PostMapping("/editar/persona")
-	public void editarPersona(@RequestBody Persona per){
-	    perServ.editarPersona(per);
+	public Persona editarPersona(@RequestBody Persona per){
+            return perServ.editarPersona(per);
 	}
 
 	@DeleteMapping ("/delete/persona/{id}")
