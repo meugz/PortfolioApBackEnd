@@ -12,7 +12,7 @@ import com.portfolioAP.tpfinal.repository.PersonaRepository;
 public class PersonaService implements IPersonaService {
 	
 	@Autowired
-	public PersonaRepository perRepo; 
+	private PersonaRepository perRepo; 
 
 	@Override
 	public List<Persona> verPersonas() {

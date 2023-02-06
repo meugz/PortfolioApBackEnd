@@ -22,7 +22,7 @@ public class CursoController {
     private final static Long ID_PERSONA=1L;
     
     @PostMapping("/add/curso")
-    private ResponseEntity<Curso> agregarCurso(@RequestBody Curso curso){
+    public ResponseEntity<Curso> agregarCurso(@RequestBody Curso curso){
         Persona persona1 = new Persona();
         persona1.setId(ID_PERSONA);
         curso.setPersona(persona1);

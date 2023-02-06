@@ -23,7 +23,7 @@ public class Educacion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable= false, updatable = false)
+        @Column(nullable= false, updatable = false)
 	
 	/*@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")*/
