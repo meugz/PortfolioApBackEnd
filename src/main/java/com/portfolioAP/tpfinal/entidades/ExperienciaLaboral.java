@@ -1,6 +1,5 @@
 package com.portfolioAP.tpfinal.entidades;
 
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +33,7 @@ public class ExperienciaLaboral {
 	private String nombrePuesto;
 	private String empresa;
 	private String ubicacion;
-	private LocalDateTime fecha;
+	private LocalDate fecha;
 	private String descripcionExp;
 	
 	

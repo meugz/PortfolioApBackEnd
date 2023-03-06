@@ -2,10 +2,12 @@
 package com.portfolioAP.tpfinal.service;
 
 import com.portfolioAP.tpfinal.entidades.Curso;
+import com.portfolioAP.tpfinal.exceptions.NotFoundException;
 import com.portfolioAP.tpfinal.repository.CursoRepository;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,7 @@ public class CursoService implements ICursoService {
 
     @Override
     public Curso buscarCurso(Long id) {
-       return cursoRep.findById(id).orElse(null);
+       return cursoRep.findById(id).orElseThrow(()-> new NotFoundException("El id no existe, Gonza sabe y te dice que pusiste mal el id"));
     }
 
     @Override

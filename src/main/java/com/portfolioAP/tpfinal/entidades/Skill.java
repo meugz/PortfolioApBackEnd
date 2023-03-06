@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +19,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data 
-@AllArgsConstructor
 @NoArgsConstructor
 public class Skill {
     @Id
@@ -27,12 +28,24 @@ public class Skill {
 	private Long id;
 	private String nombreSkill;
 	private String nivel;
+        @Enumerated(EnumType.ORDINAL)
+        private SkillType tipo;    
 	private String descripcionSkill;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="idPersona")
     @JsonBackReference
     private Persona persona;
+
+    public Skill(Long id, String nombreSkill, String nivel, String descripcionSkill, Persona persona) {
+        this.id = id;
+        this.nombreSkill = nombreSkill;
+        this.nivel = nivel;
+        this.descripcionSkill = descripcionSkill;
+        this.persona = persona;
+    }
+    
+    
 	
 	
 }

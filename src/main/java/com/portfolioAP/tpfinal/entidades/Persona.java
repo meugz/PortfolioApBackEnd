@@ -1,6 +1,6 @@
 package com.portfolioAP.tpfinal.entidades;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,7 +48,7 @@ public class Persona {
 	
 	private String ciudad;
 	
-	private LocalDateTime fechaNac;
+	private LocalDate fechaNac;
 	
 	private String descripcion;
 

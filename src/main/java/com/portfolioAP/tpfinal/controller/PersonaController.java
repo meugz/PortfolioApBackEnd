@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.service.IPersonaService;
-import java.time.LocalDateTime;
-import org.springframework.beans.BeanUtils;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class PersonaController {
 
@@ -48,8 +50,8 @@ public class PersonaController {
         return perServ.buscarPersona(id);
     }
 
-    /*@PostMapping("/persona/editar")
-    public Persona editarPersona(@RequestBody Persona per) {
+    /*@PutMapping("/persona/editar/{id}")
+    public ResponseEntity<Persona> editarPersona(@RequestBody Persona per) {
         return perServ.editarPersona(per);
     }*/
 
@@ -65,16 +67,18 @@ public class PersonaController {
             @RequestParam("email") String nuevoEmail,
             @RequestParam("ocupacion") String nuevaOcupacion,
             @RequestParam("ciudad") String nuevaCiudad,
-            //@RequestParam("fechaNac") LocalDateTime nuevaFechaNac,
+            @RequestParam("fechaNac") String nuevaFechaNac,
             @RequestParam("descripcion") String nuevaDescripcion,
             @RequestParam("foto") String nuevaFoto) {
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Persona modifPersona = perServ.buscarPersona(id);
         modifPersona.setNombre(nuevoNombre);
         modifPersona.setApellido(nuevoApellido);
         modifPersona.setEmail(nuevoEmail);
         modifPersona.setOcupacion(nuevaOcupacion);
         modifPersona.setCiudad(nuevaCiudad);
-        //modifPersona.setFechaNac(nuevaFechaNac);
+        modifPersona.setFechaNac(LocalDate.parse(nuevaFechaNac, formatter));
         modifPersona.setDescripcion(nuevaDescripcion);
         modifPersona.setFoto(nuevaFoto);
         perServ.editarPersona(modifPersona);
