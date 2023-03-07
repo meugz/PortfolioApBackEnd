@@ -10,6 +10,6 @@ public interface ISkillService {
     public Skill crearHabilidad(Skill habilidad);
     public void borrarHabilidad(Long id);
     public Skill buscarHabilidad(Long id);
-    public Skill  editarHabilidad(Skill habilidad);
+    public Skill  editarHabilidad(Long id, Skill habilidad);
     
 }

@@ -27,17 +27,12 @@ public class SkillController {
     private SkillService skillServ;
     
     //seteamos con una constante el ID de la Persona a ExperienciaLaboral 
-    private final static Long ID_PERSONA = 1L;
+    
 
     @PostMapping("/skill/add")
-    public ResponseEntity<Skill> agregarInteres(@RequestBody Skill habilidad) {
-
-        //esta Persona se va a setear siempre como nueva?
-        Persona persona1 = new Persona();
-        persona1.setId(ID_PERSONA);
-        habilidad.setPersona(persona1);
-        Skill habilidades = skillServ.crearHabilidad(habilidad);
-        return new ResponseEntity<>(habilidades, HttpStatus.OK);
+    public ResponseEntity<Skill> agregarHabilidad(@RequestBody Skill habilidad) {
+        Skill nuevaHabilidad = skillServ.crearHabilidad(habilidad);
+        return new ResponseEntity<>(nuevaHabilidad, HttpStatus.OK);
     }
 
     @GetMapping("/skill/lista")
@@ -58,13 +53,11 @@ public class SkillController {
     }
 
     @PutMapping("/skill/editar/{idSkill}")
-    public ResponseEntity<Skill> editarHabilidad(@PathVariable Long idSkill, @RequestBody Skill habilidad) {
-        Skill modifSkill = skillServ.buscarHabilidad(idSkill);
-        modifSkill.setNombreSkill(habilidad.getNombreSkill());
-        modifSkill.setNivel(habilidad.getNivel());
-        modifSkill.setDescripcionSkill(habilidad.getDescripcionSkill());
-        skillServ.editarHabilidad(modifSkill);
+    public ResponseEntity<Skill> editarHabilidad(@PathVariable Long idSkill, @RequestBody Skill nuevaHabilidad) {    
+        Skill modifSkill = skillServ.editarHabilidad(idSkill, nuevaHabilidad);
         return new ResponseEntity<>(modifSkill, HttpStatus.OK);
     }
+    
+   
 
 }

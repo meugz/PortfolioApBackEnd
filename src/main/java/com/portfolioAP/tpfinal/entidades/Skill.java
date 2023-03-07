@@ -28,6 +28,7 @@ public class Skill {
 	private Long id;
 	private String nombreSkill;
 	private String nivel;
+        private Integer percentNivel;
         @Enumerated(EnumType.ORDINAL)
         private SkillType tipo;    
 	private String descripcionSkill;
