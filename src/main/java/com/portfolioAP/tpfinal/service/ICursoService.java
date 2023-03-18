@@ -9,5 +9,5 @@ public interface ICursoService {
 	public Curso crearCurso (Curso curso);
 	public void borrarCurso (Long id);
 	public Curso buscarCurso (Long id);
-	public Curso editarCurso (Curso curso);
+	public Curso editarCurso (Long id, Curso curso);
 }

@@ -20,50 +20,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api")
+@RequestMapping("/api/educacion")
 public class EducacionController {
     
     @Autowired
     private EducacionService educServ;
-    //seteamos con una constante el ID de la Persona a Educacion 
-    private final static Long ID_PERSONA=1L;
-    
-    @PostMapping("/educacion/add")
+     
+    @PostMapping("/add")
     public ResponseEntity<Educacion> agregarEducacion(@RequestBody Educacion educacion){
-        
-        //esta Persona se va a setear siempre como nueva?
-        Persona persona1 = new Persona();
-        persona1.setId(ID_PERSONA);
-        educacion.setPersona(persona1);
-        Educacion titulos = educServ.crearEducacion(educacion);
-        return new ResponseEntity<>(educacion, HttpStatus.OK);
+        Educacion titulo = educServ.crearEducacion(educacion);
+        return new ResponseEntity<>(titulo, HttpStatus.OK);
     }
     
-    @GetMapping("/educacion/lista")
+    @GetMapping("/all")
     @ResponseBody
     public List<Educacion> verListaEducacion() {
         return educServ.verListaEducacion();
     }
 
-    @GetMapping("/educacion/ver/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public Educacion verEducacion(@PathVariable Long id) {
         return educServ.buscarEducacion(id);
     }
 
-    @DeleteMapping("/educacion/delete/{id}")
+    @DeleteMapping("/{id}")
     public void borrarCurso(@PathVariable Long id) {
         educServ.borrarEducacion(id);
     }
 
-    @PutMapping("/educacion/editar/{idEduc}")
+    @PutMapping("/{idEduc}")
     public ResponseEntity<Educacion> editarEducacion(@PathVariable Long idEduc, @RequestBody Educacion educ) {
-        Educacion modifEduc = educServ.buscarEducacion(idEduc);
-        modifEduc.setNombreEdu(educ.getNombreEdu());
-        modifEduc.setInstitucionEdu(educ.getInstitucionEdu());
-        modifEduc.setPeriodoEdu(educ.getPeriodoEdu());
-        modifEduc.setDescripcionEdu(educ.getDescripcionEdu());
-        educServ.editarEducacion(modifEduc);
+        Educacion modifEduc = educServ.editarEducacion(idEduc, educ);
         return new ResponseEntity<>(modifEduc, HttpStatus.OK);
     }
     

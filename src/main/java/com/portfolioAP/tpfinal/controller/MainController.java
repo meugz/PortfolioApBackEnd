@@ -5,11 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MainController {
-	@GetMapping("/hola/{nombre}")
-	public String decirHola(@PathVariable String nombre) {
-		return "Hola mundo " + nombre;
-	}
-	
-	
 
 }

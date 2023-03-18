@@ -1,6 +1,5 @@
 package com.portfolioAP.tpfinal.controller;
 
-import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.entidades.Proyecto;
 import com.portfolioAP.tpfinal.service.ProyectoService;
 import java.util.List;
@@ -20,50 +19,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api")
+@RequestMapping("/api/proyecto")
 public class ProyectoController {
     
     @Autowired
     private ProyectoService proServ;
-    
-     //seteamos con una constante el ID de la Persona a ExperienciaLaboral 
-    private final static Long ID_PERSONA = 1L;
 
-    @PostMapping("/proyecto/add")
+    @PostMapping("/add")
     public ResponseEntity<Proyecto> agregarProyecto(@RequestBody Proyecto project) {
-        //esta Persona se va a setear siempre como nueva?
-        Persona persona1 = new Persona();
-        persona1.setId(ID_PERSONA);
-        project.setPersona(persona1);
-        Proyecto proyectos = proServ.crearProyecto(project);
-        return new ResponseEntity<>(proyectos, HttpStatus.OK);
+        Proyecto proyecto = proServ.crearProyecto(project);
+        return new ResponseEntity<>(proyecto, HttpStatus.OK);
     }
 
-    @GetMapping("/proyecto/lista")
+    @GetMapping("/all")
     @ResponseBody
     public List<Proyecto> verListaProyectos() {
         return proServ.verListaProyectos();
     }
 
-    @GetMapping("/proyecto/ver/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public Proyecto verProyecto(@PathVariable Long id) {
         return proServ.buscarProyecto(id);
     }
 
-    @DeleteMapping("/proyecto/delete/{id}")
+    @DeleteMapping("/{id}")
     public void borrarProyecto(@PathVariable Long id) {
         proServ.borrarProyecto(id);
     }
 
-    @PutMapping("/proyecto/editar/{idProject}")
+    @PutMapping("/{idProject}")
     public ResponseEntity<Proyecto> editarProyecto(@PathVariable Long idProject, @RequestBody Proyecto project) {
-        Proyecto modifProject = proServ.buscarProyecto(idProject);
-        modifProject.setNombreProyecto(project.getNombreProyecto());
-        modifProject.setFecha(project.getFecha());
-        modifProject.setDescripcionProyecto(project.getDescripcionProyecto());
-        modifProject.setUrl(project.getUrl());
-        proServ.editarProyecto(modifProject);
+        Proyecto modifProject = proServ.editarProyecto(idProject, project);
         return new ResponseEntity<>(modifProject, HttpStatus.OK);
     }
 

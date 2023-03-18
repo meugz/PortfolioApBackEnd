@@ -2,6 +2,7 @@
 package com.portfolioAP.tpfinal.service;
 
 import com.portfolioAP.tpfinal.entidades.Educacion;
+import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.repository.EducacionRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,30 +12,41 @@ import org.springframework.stereotype.Service;
 public class EducacionService implements IEducacionService {
     
     @Autowired
-    private EducacionRepository educServ;
+    private EducacionRepository educRep;
+    //seteamos con una constante el ID de la Persona a Educacion 
+    private final static Long ID_PERSONA=1L;
 
     @Override
     public List<Educacion> verListaEducacion() {
-       return educServ.findAll();
+       return educRep.findAll();
     }
 
     @Override
     public Educacion crearEducacion(Educacion educ) {
-        return educServ.save(educ);
+        //esta Persona se va a setear siempre como nueva?
+        Persona persona1 = new Persona();
+        persona1.setId(ID_PERSONA);
+        educ.setPersona(persona1);
+        return educRep.save(educ);
     }
 
     @Override
     public void borrarEducacion(Long id) {
-       educServ.deleteById(id);
+       educRep.deleteById(id);
     }
 
     @Override
     public Educacion buscarEducacion(Long id) {
-       return educServ.findById(id).orElse(null);
+       return educRep.findById(id).orElse(null);
     }
 
     @Override
-    public Educacion editarEducacion(Educacion educ) {
-       return educServ.save(educ);
+    public Educacion editarEducacion(Long id, Educacion educ) {
+        Educacion modifEduc = this.buscarEducacion(id);
+        modifEduc.setNombreEdu(educ.getNombreEdu());
+        modifEduc.setInstitucionEdu(educ.getInstitucionEdu());
+        modifEduc.setPeriodoEdu(educ.getPeriodoEdu());
+        modifEduc.setDescripcionEdu(educ.getDescripcionEdu());
+       return educRep.save(modifEduc);
     } 
 }

@@ -1,6 +1,7 @@
 
 package com.portfolioAP.tpfinal.service;
 
+import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.entidades.Proyecto;
 import com.portfolioAP.tpfinal.repository.ProyectoRepository;
 import java.util.List;
@@ -12,6 +13,8 @@ public class ProyectoService implements IProyectoService {
 
     @Autowired
     private ProyectoRepository proyRep;
+    //seteamos con una constante el ID de la Persona a ExperienciaLaboral 
+    private final static Long ID_PERSONA = 1L;
     
     @Override
     public List<Proyecto> verListaProyectos() {
@@ -20,6 +23,9 @@ public class ProyectoService implements IProyectoService {
 
     @Override
     public Proyecto crearProyecto(Proyecto project) {
+        Persona persona1 = new Persona();
+        persona1.setId(ID_PERSONA);
+        project.setPersona(persona1);
         return proyRep.save(project);
     }
 
@@ -34,8 +40,13 @@ public class ProyectoService implements IProyectoService {
     }
 
     @Override
-    public Proyecto editarProyecto(Proyecto project) {
-        return proyRep.save(project);
+    public Proyecto editarProyecto(Long id, Proyecto project) {
+        Proyecto modifProject = this.buscarProyecto(id);
+        modifProject.setNombreProyecto(project.getNombreProyecto());
+        modifProject.setFecha(project.getFecha());
+        modifProject.setDescripcionProyecto(project.getDescripcionProyecto());
+        modifProject.setUrl(project.getUrl());
+        return proyRep.save(modifProject);
     }
     
 

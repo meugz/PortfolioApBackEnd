@@ -10,5 +10,5 @@ public interface IInteresService {
     public Interes crearInteres(Interes interes);
     public void borrarInteres(Long id);
     public Interes buscarInteres(Long id);
-    public Interes  editarInteres(Interes interes);
+    public Interes  editarInteres(Long id, Interes interes);
 }

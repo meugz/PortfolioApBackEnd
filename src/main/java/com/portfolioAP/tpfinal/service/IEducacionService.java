@@ -10,6 +10,6 @@ public interface IEducacionService {
     public Educacion crearEducacion(Educacion educ);
     public void borrarEducacion(Long id);
     public Educacion buscarEducacion(Long id);
-    public Educacion editarEducacion(Educacion educ);
+    public Educacion editarEducacion(Long id, Educacion educ);
     
 }

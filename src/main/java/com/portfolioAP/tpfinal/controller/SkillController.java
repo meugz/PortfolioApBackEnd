@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api")
+@RequestMapping("/api/skill")
 public class SkillController {
     
     @Autowired
@@ -29,30 +29,30 @@ public class SkillController {
     //seteamos con una constante el ID de la Persona a ExperienciaLaboral 
     
 
-    @PostMapping("/skill/add")
+    @PostMapping("/add")
     public ResponseEntity<Skill> agregarHabilidad(@RequestBody Skill habilidad) {
         Skill nuevaHabilidad = skillServ.crearHabilidad(habilidad);
         return new ResponseEntity<>(nuevaHabilidad, HttpStatus.OK);
     }
 
-    @GetMapping("/skill/lista")
+    @GetMapping("/all")
     @ResponseBody
     public List<Skill> verListaHabilidades() {
         return skillServ.verListaHabilidades();
     }
 
-    @GetMapping("/skill/ver/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public Skill verHabilidad(@PathVariable Long id) {
         return skillServ.buscarHabilidad(id);
     }
 
-    @DeleteMapping("/skill/delete/{id}")
+    @DeleteMapping("/{id}")
     public void borrarHabilidad(@PathVariable Long id) {
         skillServ.borrarHabilidad(id);
     }
 
-    @PutMapping("/skill/editar/{idSkill}")
+    @PutMapping("/{idSkill}")
     public ResponseEntity<Skill> editarHabilidad(@PathVariable Long idSkill, @RequestBody Skill nuevaHabilidad) {    
         Skill modifSkill = skillServ.editarHabilidad(idSkill, nuevaHabilidad);
         return new ResponseEntity<>(modifSkill, HttpStatus.OK);

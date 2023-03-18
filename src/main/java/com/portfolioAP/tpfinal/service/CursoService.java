@@ -2,6 +2,7 @@
 package com.portfolioAP.tpfinal.service;
 
 import com.portfolioAP.tpfinal.entidades.Curso;
+import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.exceptions.NotFoundException;
 import com.portfolioAP.tpfinal.repository.CursoRepository;
 import java.lang.reflect.Field;
@@ -16,6 +17,7 @@ public class CursoService implements ICursoService {
 
     @Autowired
     private CursoRepository cursoRep;
+    private final static Long ID_PERSONA = 1L;
     
     @Override
     public List<Curso> verListaCursos() {
@@ -24,6 +26,9 @@ public class CursoService implements ICursoService {
 
     @Override
     public Curso crearCurso(Curso curso) {
+        Persona persona1 = new Persona();
+        persona1.setId(ID_PERSONA);
+        curso.setPersona(persona1);
         return cursoRep.save(curso);
     }
 
@@ -38,8 +43,13 @@ public class CursoService implements ICursoService {
     }
 
     @Override
-    public Curso editarCurso(Curso curso) {
-        return cursoRep.save(curso);
+    public Curso editarCurso(Long id, Curso curso) {
+        Curso modifCurso = this.buscarCurso(id);
+        modifCurso.setNombre(curso.getNombre());
+        modifCurso.setInstitucion(curso.getInstitucion());
+        modifCurso.setPeriodo(curso.getPeriodo());
+        modifCurso.setDescripcion(curso.getDescripcion());
+        return cursoRep.save(modifCurso);
     }
      
 }

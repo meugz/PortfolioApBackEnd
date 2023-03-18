@@ -9,7 +9,7 @@ public interface IPersonaService {
 	public Persona crearPersona (Persona person);
 	public void borrarPersona (Long id);
 	public Persona buscarPersona (Long id);
-	public Persona editarPersona (Persona per);
+	public Persona editarPersona (Long id, Persona per);
 	
 	
 }

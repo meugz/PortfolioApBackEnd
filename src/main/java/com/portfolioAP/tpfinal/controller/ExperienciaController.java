@@ -1,8 +1,6 @@
 package com.portfolioAP.tpfinal.controller;
 
-import com.portfolioAP.tpfinal.entidades.Educacion;
 import com.portfolioAP.tpfinal.entidades.ExperienciaLaboral;
-import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.service.ExperienciaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,51 +19,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api")
+@RequestMapping("/api/experiencia")
 public class ExperienciaController {
 
     @Autowired
     private ExperienciaService expServ;
-    //seteamos con una constante el ID de la Persona a ExperienciaLaboral 
-    private final static Long ID_PERSONA = 1L;
 
-    @PostMapping("/experiencia/add")
+    @PostMapping("/add")
     public ResponseEntity<ExperienciaLaboral> agregarExperienciaLaboral(@RequestBody ExperienciaLaboral experiencia) {
-
-        //esta Persona se va a setear siempre como nueva?
-        Persona persona1 = new Persona();
-        persona1.setId(ID_PERSONA);
-        experiencia.setPersona(persona1);
-        ExperienciaLaboral trabajos = expServ.crearExperienciaLaboral(experiencia);
-        return new ResponseEntity<>(trabajos, HttpStatus.OK);
+        ExperienciaLaboral trabajo = expServ.crearExperienciaLaboral(experiencia);
+        return new ResponseEntity<>(trabajo, HttpStatus.OK);
     }
 
-    @GetMapping("/experiencia/lista")
+    @GetMapping("/all")
     @ResponseBody
     public List<ExperienciaLaboral> verListaExperienciaLaboral() {
         return expServ.verListaExperienciaLaboral();
     }
 
-    @GetMapping("/experiencia/ver/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public ExperienciaLaboral verExperienciaLaboral(@PathVariable Long id) {
         return expServ.buscarExperienciaLaboral(id);
     }
 
-    @DeleteMapping("/experiencia/delete/{id}")
+    @DeleteMapping("/{id}")
     public void borrarExperienciaLaboral(@PathVariable Long id) {
         expServ.borrarExperienciaLaboral(id);
     }
 
-    @PutMapping("/experiencia/editar/{idExp}")
+    @PutMapping("/{idExp}")
     public ResponseEntity<ExperienciaLaboral> editarExperienciaLaboral(@PathVariable Long idExp, @RequestBody ExperienciaLaboral exp) {
-        ExperienciaLaboral modifExp = expServ.buscarExperienciaLaboral(idExp);
-        modifExp.setNombrePuesto(exp.getNombrePuesto());
-        modifExp.setEmpresa(exp.getEmpresa());
-        modifExp.setUbicacion(exp.getUbicacion());
-        modifExp.setFecha(exp.getFecha());
-        modifExp.setDescripcionExp(exp.getDescripcionExp());
-        expServ.editarExperienciaLaboral(modifExp);
+        ExperienciaLaboral modifExp = expServ.editarExperienciaLaboral(idExp, exp);
         return new ResponseEntity<>(modifExp, HttpStatus.OK);
     }
 
