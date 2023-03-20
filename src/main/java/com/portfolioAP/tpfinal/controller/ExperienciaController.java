@@ -1,11 +1,13 @@
 package com.portfolioAP.tpfinal.controller;
 
+import com.portfolioAP.tpfinal.entidades.Curso;
 import com.portfolioAP.tpfinal.entidades.ExperienciaLaboral;
 import com.portfolioAP.tpfinal.service.ExperienciaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ public class ExperienciaController {
     @Autowired
     private ExperienciaService expServ;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<ExperienciaLaboral> agregarExperienciaLaboral(@RequestBody ExperienciaLaboral experiencia) {
         ExperienciaLaboral trabajo = expServ.crearExperienciaLaboral(experiencia);
@@ -43,15 +46,18 @@ public class ExperienciaController {
         return expServ.buscarExperienciaLaboral(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void borrarExperienciaLaboral(@PathVariable Long id) {
         expServ.borrarExperienciaLaboral(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{idExp}")
     public ResponseEntity<ExperienciaLaboral> editarExperienciaLaboral(@PathVariable Long idExp, @RequestBody ExperienciaLaboral exp) {
         ExperienciaLaboral modifExp = expServ.editarExperienciaLaboral(idExp, exp);
         return new ResponseEntity<>(modifExp, HttpStatus.OK);
     }
+
 
 }

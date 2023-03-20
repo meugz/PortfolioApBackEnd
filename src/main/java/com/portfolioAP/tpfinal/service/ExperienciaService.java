@@ -1,5 +1,6 @@
 package com.portfolioAP.tpfinal.service;
 
+import com.portfolioAP.tpfinal.entidades.Curso;
 import com.portfolioAP.tpfinal.entidades.ExperienciaLaboral;
 import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.repository.ExperienciaRepository;
@@ -50,6 +51,5 @@ public class ExperienciaService implements IExperienciaService {
         modifExp.setDescripcionExp(exp.getDescripcionExp());
         return expRep.save(modifExp);
     }
-
   
 }

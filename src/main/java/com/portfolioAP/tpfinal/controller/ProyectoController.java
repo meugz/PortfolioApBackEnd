@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class ProyectoController {
     @Autowired
     private ProyectoService proServ;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Proyecto> agregarProyecto(@RequestBody Proyecto project) {
         Proyecto proyecto = proServ.crearProyecto(project);
@@ -43,11 +45,13 @@ public class ProyectoController {
         return proServ.buscarProyecto(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void borrarProyecto(@PathVariable Long id) {
         proServ.borrarProyecto(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{idProject}")
     public ResponseEntity<Proyecto> editarProyecto(@PathVariable Long idProject, @RequestBody Proyecto project) {
         Proyecto modifProject = proServ.editarProyecto(idProject, project);

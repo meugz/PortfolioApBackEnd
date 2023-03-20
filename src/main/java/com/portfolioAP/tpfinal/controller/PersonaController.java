@@ -3,6 +3,7 @@ package com.portfolioAP.tpfinal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ public class PersonaController {
     @Autowired
     private PersonaService perServ;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/new")
     public ResponseEntity<Persona> agregarPersona(@RequestBody Persona per) {
         Persona person = perServ.crearPersona(per);
@@ -50,11 +52,13 @@ public class PersonaController {
         return perServ.buscarPersona(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Persona editarPersona(@PathVariable Long id, @RequestBody Persona per) {
         return perServ.editarPersona(id, per);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void borrarPersona(@PathVariable Long id) {
         perServ.borrarPersona(id);

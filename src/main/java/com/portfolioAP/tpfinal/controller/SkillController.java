@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,9 @@ public class SkillController {
     private SkillService skillServ;
     
     //seteamos con una constante el ID de la Persona a ExperienciaLaboral 
-    
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Skill> agregarHabilidad(@RequestBody Skill habilidad) {
         Skill nuevaHabilidad = skillServ.crearHabilidad(habilidad);
@@ -47,11 +49,13 @@ public class SkillController {
         return skillServ.buscarHabilidad(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void borrarHabilidad(@PathVariable Long id) {
         skillServ.borrarHabilidad(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{idSkill}")
     public ResponseEntity<Skill> editarHabilidad(@PathVariable Long idSkill, @RequestBody Skill nuevaHabilidad) {    
         Skill modifSkill = skillServ.editarHabilidad(idSkill, nuevaHabilidad);

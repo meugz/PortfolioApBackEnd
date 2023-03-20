@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.portfolioAP.tpfinal.seguridad.entity.User;
 import com.sun.istack.NotNull;
 import java.time.LocalDate;
 
@@ -36,7 +37,7 @@ public class Persona {
     /*@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")*/
     private Long id;
-    
+   
     @NotNull
     private String nombre;
     
@@ -59,10 +60,6 @@ public class Persona {
     private String descripcion;
 
     private String foto;
-
-    @OneToOne(mappedBy = "persona", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Usuario user;
 
     @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference

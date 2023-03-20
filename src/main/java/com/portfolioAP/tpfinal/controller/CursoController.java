@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +30,8 @@ public class CursoController {
 
     @Autowired
     private CursoService cursoServ;
-    
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Curso> agregarCurso(@RequestBody Curso curso) {
         Curso cursos = cursoServ.crearCurso(curso);
@@ -48,12 +49,13 @@ public class CursoController {
     public Curso verCurso(@PathVariable Long id) {
         return cursoServ.buscarCurso(id);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void borrarCurso(@PathVariable Long id) {
         cursoServ.borrarCurso(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{idCurso}")
     public ResponseEntity<Curso> editarCurso(@PathVariable Long idCurso, @RequestBody Curso curso) {
         Curso modifCurso = cursoServ.editarCurso(idCurso, curso);
