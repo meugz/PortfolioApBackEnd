@@ -44,11 +44,21 @@ public class ExperienciaService implements IExperienciaService {
     @Override
     public ExperienciaLaboral editarExperienciaLaboral(Long id, ExperienciaLaboral exp) {
         ExperienciaLaboral modifExp = this.buscarExperienciaLaboral(id);
-        modifExp.setNombrePuesto(exp.getNombrePuesto());
-        modifExp.setEmpresa(exp.getEmpresa());
-        modifExp.setUbicacion(exp.getUbicacion());
-        modifExp.setFecha(exp.getFecha());
-        modifExp.setDescripcionExp(exp.getDescripcionExp());
+        if (exp.getNombrePuesto() != null) {
+            modifExp.setNombrePuesto(exp.getNombrePuesto());
+        }
+        if (exp.getEmpresa()!=null){
+            modifExp.setEmpresa(exp.getEmpresa());
+        }
+        if (exp.getUbicacion()!=null){
+            modifExp.setUbicacion(exp.getUbicacion());
+        }
+        if (exp.getFecha()!=null){
+            modifExp.setFecha(exp.getFecha());
+        }
+        if (exp.getDescripcionExp()!=null){
+            modifExp.setDescripcionExp(exp.getDescripcionExp());
+        }
         return expRep.save(modifExp);
     }
   

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -26,18 +27,19 @@ public class Curso {
 	
 	/*@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")*/
-	
+
 	private Long id;
+	@NotBlank
 	private String nombre;
+	@NotBlank
 	private String institucion;
+	@NotBlank
 	private String periodo;
+	@NotBlank
 	private String descripcion;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="idPersona")
     @JsonBackReference
     private Persona persona;
-	
-	
-	
 }

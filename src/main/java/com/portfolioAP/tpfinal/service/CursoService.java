@@ -39,16 +39,25 @@ public class CursoService implements ICursoService {
 
     @Override
     public Curso buscarCurso(Long id) {
-       return cursoRep.findById(id).orElseThrow(()-> new NotFoundException("El id no existe, Gonza sabe y te dice que pusiste mal el id"));
+       return cursoRep.findById(id).orElseThrow(()-> new NotFoundException("message"));
     }
 
     @Override
     public Curso editarCurso(Long id, Curso curso) {
+
         Curso modifCurso = this.buscarCurso(id);
-        modifCurso.setNombre(curso.getNombre());
-        modifCurso.setInstitucion(curso.getInstitucion());
-        modifCurso.setPeriodo(curso.getPeriodo());
-        modifCurso.setDescripcion(curso.getDescripcion());
+        if (curso.getNombre()!= null){
+            modifCurso.setNombre(curso.getNombre());
+        }
+        if (curso.getInstitucion()!= null){
+            modifCurso.setInstitucion(curso.getInstitucion());
+        }
+        if (curso.getPeriodo()!=null){
+            modifCurso.setPeriodo(curso.getPeriodo());
+        }
+        if (curso.getDescripcion()!=null){
+            modifCurso.setDescripcion(curso.getDescripcion());
+        }
         return cursoRep.save(modifCurso);
     }
      

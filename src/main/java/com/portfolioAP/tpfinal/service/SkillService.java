@@ -46,11 +46,21 @@ public class SkillService implements ISkillService {
     @Override
     public Skill editarHabilidad(Long id, Skill habilidad) {
         Skill modifSkill = this.buscarHabilidad(id);
-        modifSkill.setNombreSkill(habilidad.getNombreSkill());
-        modifSkill.setNivel(habilidad.getNivel());
-        modifSkill.setPercentNivel(this.nivelarSkill(habilidad.getNivel(), habilidad.getTipo()));       
-        modifSkill.setTipo(habilidad.getTipo());
-        modifSkill.setDescripcionSkill(habilidad.getDescripcionSkill());
+        if (habilidad.getNombreSkill()!=null){
+            modifSkill.setNombreSkill(habilidad.getNombreSkill());
+        }
+        if (habilidad.getNivel()!=null){
+            modifSkill.setNivel(habilidad.getNivel());
+        }
+        if (habilidad.getPercentNivel()!=null){
+            modifSkill.setPercentNivel(this.nivelarSkill(habilidad.getNivel(), habilidad.getTipo()));
+        }
+        if (habilidad.getTipo()!=null){
+            modifSkill.setTipo(habilidad.getTipo());
+        }
+        if (habilidad.getDescripcionSkill()!=null){
+            modifSkill.setDescripcionSkill(habilidad.getDescripcionSkill());
+        }
         return skillRep.save(modifSkill);
     }
     

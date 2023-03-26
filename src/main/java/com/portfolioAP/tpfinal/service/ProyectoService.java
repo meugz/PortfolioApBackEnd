@@ -42,10 +42,18 @@ public class ProyectoService implements IProyectoService {
     @Override
     public Proyecto editarProyecto(Long id, Proyecto project) {
         Proyecto modifProject = this.buscarProyecto(id);
-        modifProject.setNombreProyecto(project.getNombreProyecto());
-        modifProject.setFecha(project.getFecha());
-        modifProject.setDescripcionProyecto(project.getDescripcionProyecto());
-        modifProject.setUrl(project.getUrl());
+        if (project.getNombreProyecto()!=null){
+            modifProject.setNombreProyecto(project.getNombreProyecto());
+        }
+        if (project.getFecha()!=null){
+            modifProject.setFecha(project.getFecha());
+        }
+        if (project.getDescripcionProyecto()!=null){
+            modifProject.setDescripcionProyecto(project.getDescripcionProyecto());
+        }
+        if (project.getUrl()!=null){
+            modifProject.setUrl(project.getUrl());
+        }
         return proyRep.save(modifProject);
     }
     

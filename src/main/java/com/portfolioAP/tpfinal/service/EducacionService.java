@@ -1,6 +1,7 @@
 
 package com.portfolioAP.tpfinal.service;
 
+import com.portfolioAP.tpfinal.entidades.Curso;
 import com.portfolioAP.tpfinal.entidades.Educacion;
 import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.repository.EducacionRepository;
@@ -43,10 +44,19 @@ public class EducacionService implements IEducacionService {
     @Override
     public Educacion editarEducacion(Long id, Educacion educ) {
         Educacion modifEduc = this.buscarEducacion(id);
-        modifEduc.setNombreEdu(educ.getNombreEdu());
-        modifEduc.setInstitucionEdu(educ.getInstitucionEdu());
-        modifEduc.setPeriodoEdu(educ.getPeriodoEdu());
-        modifEduc.setDescripcionEdu(educ.getDescripcionEdu());
+        if (educ.getNombreEdu()!= null){
+            modifEduc.setNombreEdu(educ.getNombreEdu());
+        }
+        if (educ.getInstitucionEdu()!= null){
+            modifEduc.setInstitucionEdu(educ.getInstitucionEdu());
+        }
+        if (educ.getPeriodoEdu()!= null){
+            modifEduc.setPeriodoEdu(educ.getPeriodoEdu());
+        }
+        if (educ.getDescripcionEdu()!=null){
+            modifEduc.setDescripcionEdu(educ.getDescripcionEdu());
+        }
        return educRep.save(modifEduc);
-    } 
+    }
+
 }

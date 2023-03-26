@@ -27,6 +27,17 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true) //con este parámetro vamos a indicar a que métodos puede acceder solo el administrador
 public class MainSecurity extends WebSecurityConfigurerAdapter {
 
+    private static final String[] PUBLIC_MATCHERS = {
+            "/api/auth/**",
+            "/api/experiencia/all",
+            "/api/curso/all",
+            "/api/interes/all",
+            "/api/educacion/all",
+            "/api/proyecto/all",
+            "/api/skill/all",
+            "/api/persona/1"
+    };
+
     @Autowired
     UserDetailsServiceImpl userDetailsService;
     @Autowired
@@ -62,7 +73,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
@@ -74,7 +85,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList("https://portfolioap-bf382.web.app", "http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         configuration.setAllowCredentials(true);

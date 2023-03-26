@@ -15,15 +15,16 @@ public class InteresService implements IInteresService {
     private InteresRepository intRep;
     //seteamos con una constante el ID de la Persona a ExperienciaLaboral 
     private final static Long ID_PERSONA = 1L;
-            
+
     @Override
     public List<Interes> verListaInteres() {
         return intRep.findAll();
     }
 
+
     @Override
     public Interes crearInteres(Interes interes) {
-        //esta Persona se va a setear siempre como nueva?
+        //esta Persona se va a setear siempre
         Persona persona1 = new Persona();
         persona1.setId(ID_PERSONA);
         interes.setPersona(persona1);
@@ -43,7 +44,9 @@ public class InteresService implements IInteresService {
     @Override
     public Interes editarInteres(Long id, Interes interes) {
         Interes modifInteres = this.buscarInteres(id);
-        modifInteres.setDescripcionInteres(interes.getDescripcionInteres());
+        if (interes.getDescripcionInteres()!=null){
+            modifInteres.setDescripcionInteres(interes.getDescripcionInteres());
+        }
         return intRep.save(modifInteres);
     }
     

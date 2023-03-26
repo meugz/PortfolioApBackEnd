@@ -1,18 +1,27 @@
 package com.portfolioAP.tpfinal.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.portfolioAP.tpfinal.dto.ImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.portfolioAP.tpfinal.entidades.Persona;
 import com.portfolioAP.tpfinal.repository.PersonaRepository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PersonaService implements IPersonaService {
 
     @Autowired
     private PersonaRepository perRepo;
+
+    @Autowired
+    private ImageService imageService;
 
     @Override
     public List<Persona> verPersonas() {
@@ -36,7 +45,7 @@ public class PersonaService implements IPersonaService {
 
     @Override
     public Persona editarPersona(Long id, Persona per) {
-       
+
         Persona modifPersona = this.buscarPersona(id);
         if (per.getNombre() != null) {
             modifPersona.setNombre(per.getNombre());
@@ -65,4 +74,10 @@ public class PersonaService implements IPersonaService {
         return perRepo.save(modifPersona);
     }
 
+    public Persona editarFoto(Long id, ImageDTO nombreImage){
+        Persona personaFound = this.buscarPersona(id);
+        personaFound.setFoto(nombreImage.getNombreImg());
+        this.perRepo.save(personaFound);
+        return personaFound;
+    }
 }
