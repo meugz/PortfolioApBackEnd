@@ -1,4 +1,4 @@
 FROM openjdk:17
 MAINTAINER MEZ
-COPY out/artifacts/tpfinal_jar/tpfinal.jar mez-app.jar
+COPY target/tpfinal-0.0.1-SNAPSHOT.jar mez-app.jar
 ENTRYPOINT ["java","-jar","/mez-app.jar"]
